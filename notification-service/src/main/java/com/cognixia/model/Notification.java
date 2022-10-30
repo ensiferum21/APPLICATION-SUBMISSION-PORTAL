@@ -14,7 +14,7 @@ public class Notification {
 	private int notificationID;
 	
 	private int applicationID;
-	private String message = "This email is to notify that you have successfully submitted an application. Your application will be reviewed soon!";	
+	private String message = "This email is to notify that you have successfully submitted an application. Your application will be reviewed shortly!";	
 	private String recipientEmail;
 	private LocalDateTime notiSendDate;
 	
