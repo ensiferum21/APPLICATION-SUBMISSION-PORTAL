@@ -42,7 +42,7 @@ public class SecurityConfig{
 		
 		http.csrf().disable();
 		http.authenticationProvider(authenticationProvider());
-		http.authorizeRequests().antMatchers("/user/auth/**").permitAll()
+		http.authorizeRequests().antMatchers("/user/auth/index/**").permitAll()
 		.anyRequest().authenticated()
 		.and().formLogin();
 		
