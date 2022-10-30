@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Application Received</title>
+<style type="text/css">
+    span {
+        display: inline-block;
+        width: 200px;
+        text-align: left;
+    }
+</style>
+</head>
+<body>
+<div align="center">
+    <h2>Application Received!</h2>
+    <span>Name:</span><span th:text="${user.name}"></span><br/>
+    <span>Date of Birth:</span><span th:text="${user.dob}"></span><br/>
+    <span>Race:</span><span th:text="${user.race}"></span><br/>
+    <span>Country of Birth:</span><span th:text="${user.countryOfBirth}"></span><br/>
+    <span>COVID Vaccination Status:</span><span th:text="${user.covidVaccStatus}"></span><br/>
+    <br><a href="/index">Back to main</a>
+</div>
+
+
+<!-- <div th:if="${session.message}"
+th:classappend="${session.message}" class="alert alert-success"
+role="alert">
+
+<p th:text="${session.message}"></p>
+<th:block th:text="${session.removeAttribute('message')}"></th:block>
+</div> -->
+</body>
+</html>

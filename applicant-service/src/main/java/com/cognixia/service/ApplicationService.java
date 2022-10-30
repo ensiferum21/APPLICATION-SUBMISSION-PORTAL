@@ -38,6 +38,7 @@ public class ApplicationService{
 		return app;
 	}
 
+	//read from MySQL, write to JSON file
 	public void writeToJSON() {
 		List<Application> app = appRepo.findAll();
 		

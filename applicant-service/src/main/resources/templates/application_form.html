@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeLeaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Application Form</title>
+<style type="text/css">
+    label {
+        display: inline-block;
+        width: 200px;
+        margin: 5px;
+        text-align: left;
+    }
+    input[type=text], input[type=password], select {
+        display: inline-block;
+        width: 200px;
+    }
+    input[type=radio] {
+        margin-left: 45px;
+    }
+    input[type=checkbox] {
+        margin-right: 190px;
+    }  
+    button {
+        padding: 5px;
+        margin: 10px;
+    }
+</style>
+</head>
+<body>
+		<h1>Application Form</h1>
+		<form action="#" th:action="@{/applicationform}" th:object="${application}" method="POST">
+			<label>Name:</label>
+			<input type="text" th:field="*{name}"/><br/>
+		
+			<label>Date of Birth (yyyy-mm-dd):</label>
+			<input type="text" th:field="*{dob}"/><br/>
+		
+	 		<label>Race:</label>
+			<select th:field="*{race}">
+				<option th:each="p : ${listRace}" th:value="${p}" th:text="${p}"/>
+			</select>
+			<br>
+		
+			<label>Country of Birth:</label>
+			<select th:field="*{countryOfBirth}">
+				<option th:each="p : ${listCountry}" th:value="${p}" th:text="${p}"/>
+			</select>
+			<br>
+		
+			<label>COVID Vaccination Status:</label>
+			<select th:field="*{covidVaccStatus}">
+				<option th:each="p : ${listVaccSataus}" th:value="${p}" th:text="${p}"/>
+			</select>
+			<br>
+		
+			<button type = "submit"> Submit Application</button>
+		</form>
+
+</body>
+</html>
