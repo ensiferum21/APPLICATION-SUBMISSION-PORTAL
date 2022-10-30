@@ -80,7 +80,7 @@ public class UserService implements UserDetailsService{
 			userDetails.setUser(user);
 				}
 		else {
-			throw new UsernameNotFoundException("username: " + username + " does not exist with the name");
+			throw new UsernameNotFoundException("username: " + username + " does not exist");
 		}		
 	
 		return userDetails;

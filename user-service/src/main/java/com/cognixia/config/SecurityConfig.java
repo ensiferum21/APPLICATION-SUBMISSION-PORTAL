@@ -22,10 +22,6 @@ public class SecurityConfig{
 	@Autowired
 	private UserDetailsService userDetailService;
 	
-//	@Bean
-//	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//		auth.userDetailsService(userDetailService).passwordEncoder(encodePwd());
-//	}
 	@Bean
 	protected AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
 	    return authConfig.getAuthenticationManager();
@@ -40,28 +36,23 @@ public class SecurityConfig{
 	 
 	    return authProvider;
 	}
-//	@Override
-//	protected void configure(HttpSecurity http) throws Exception {
-//		http.csrf().disable();
-//		http.authorizeRequests().antMatchers("/rest/**").authenticated().anyRequest().permitAll().and().formLogin();
-//	}
 	
 	@Bean
 	protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		
 		http.csrf().disable();
 		http.authenticationProvider(authenticationProvider());
-		http.authorizeRequests().antMatchers("/rest/**").permitAll()
+		http.authorizeRequests().antMatchers("/user/auth/**").permitAll()
 		.anyRequest().authenticated()
 		.and().formLogin();
 		
 		return http.build();
 	}
 	
-	@Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers("/images/**", "/js/**", "/webjars/**");
-    }
+//	@Bean
+//    public WebSecurityCustomizer webSecurityCustomizer() {
+//        return (web) -> web.ignoring().antMatchers("/images/**", "/js/**", "/webjars/**");
+//    }
 	
 	@Bean
 	public BCryptPasswordEncoder encodePwd()
