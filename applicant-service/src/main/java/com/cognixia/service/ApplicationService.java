@@ -18,31 +18,18 @@ public class ApplicationService{
 	//GET all
 	public List<Application> listApplications(){
 		List<Application> applications = appRepo.findAll();
-
-//		for (User user : users) 
-//		{
-//			user.setAccounts(accService.getAccountsByCustomerId(user.getUserID()));
-//		}
 		return applications;
 	}
 	
 	//POST cust
 	public Application addApplication(Application app) {
 		Application savedApp = appRepo.save(app);
-//		List<Account> accounts = cust.getAccounts();
-//		
-//		for(Account account:accounts) {
-//			account.setCustomerID(savedCustomer.getCustomerID());
-//			accService.addAccount(account);
-//		}
-//		savedCustomer.setAccounts(accounts);
 		return savedApp;
 	}	
 	
 	//GET cust by id
 	public Application getAppByID(int id){
 		Application app = appRepo.findById(id).orElseThrow(ApplicationNotFoundException::new);
-//		user.setAccounts(accService.getAccountsByCustomerId(user.getCustomerID()));
 		return app;
 	}
 
