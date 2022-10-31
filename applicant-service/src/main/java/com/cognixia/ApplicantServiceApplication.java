@@ -18,8 +18,6 @@ import com.cognixia.service.ApplicationService;
 @SpringBootApplication
 @EnableEurekaClient
 public class ApplicantServiceApplication implements CommandLineRunner{
-	
-	//implements CommandLineRunner for SFTP
 
 	@Autowired
 	private UploadGateway gateway;
