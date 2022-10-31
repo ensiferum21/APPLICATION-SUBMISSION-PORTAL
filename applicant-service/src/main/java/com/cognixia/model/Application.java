@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 public class Application {
 
@@ -20,6 +22,7 @@ public class Application {
 	private String name;	
 	
 	@PastOrPresent(message="Date of Birth cannot be future!")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dob;
 	
 	@PastOrPresent(message="Submission date cannot be future!")
