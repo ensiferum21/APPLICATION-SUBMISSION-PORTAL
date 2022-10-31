@@ -10,7 +10,8 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.integration.config.EnableIntegration;
 
-import com.cognixia.batch.SftpConfig.UploadGateway;
+import com.cognixia.batch.SFTPBatchConfig.UploadGateway;
+import com.cognixia.service.ApplicationService;
 
 @IntegrationComponentScan
 @EnableIntegration
@@ -23,13 +24,21 @@ public class ApplicantServiceApplication implements CommandLineRunner{
 	@Autowired
 	private UploadGateway gateway;
 	
+	@Autowired
+	private ApplicationService appService;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(ApplicantServiceApplication.class, args);
 	}
 	
+    public void generateJsonFile() {
+    	appService.writeToJSON();
+    }
+	
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
+		generateJsonFile();
 		gateway.upload(new File("C:\\Users\\Kevin\\OneDrive\\Documents\\GitHub\\APPLICATION-SUBMISSION-PORTAL\\applicant-service\\applicationJSON\\application.json"));
 	}
 
