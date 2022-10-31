@@ -2,10 +2,13 @@ package com.cognixia.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 
@@ -21,17 +24,29 @@ public class Application {
 	@NotNull(message="Name cannot be blank!")
 	private String name;	
 	
+	@NotNull
 	@PastOrPresent(message="Date of Birth cannot be future!")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dob;
 	
-	//@PastOrPresent(message="Submission date cannot be future!")
+//	@Transient
+//	@Min(value=18, message = "Age should not be less than 18")
+//	private int age = ageCalculator();
+	
 	private LocalDateTime appSubmissionDate = LocalDateTime.now();
 	
 	private String race;
 	private String countryOfBirth;
 	private String covidVaccStatus;
 	private String appStatus = "Pending";
+	
+//	public int ageCalculator() {
+//		int age = 0;
+//		LocalDate now = LocalDate.now();
+//	    age = Period.between(dob, now).getYears();
+//	    
+//	    return age;
+//	}
 	
 	public int getApplicationID() {
 		return applicationID;

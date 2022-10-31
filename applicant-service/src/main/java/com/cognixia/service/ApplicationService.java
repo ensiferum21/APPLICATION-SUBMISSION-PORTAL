@@ -2,8 +2,12 @@ package com.cognixia.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,10 +30,18 @@ public class ApplicationService{
 		return applications;
 	}
 	
+	public void ageCalculator(Application app) {
+	    LocalDate d = LocalDate.now();
+	    int age = Period.between(app.getDob(), d).getYears();
+	    
+	    if(age < 18) {
+	    	String msg = "Age should not be less than 18";
+	    	System.out.println(msg);
+	    }
+	}
+	
 	//POST cust
 	public Application addApplication(Application app) {
-		app.getAppStatus();
-		app.getAppSubmissionDate();
 		Application savedApp = appRepo.save(app);
 		return savedApp;
 	}	
