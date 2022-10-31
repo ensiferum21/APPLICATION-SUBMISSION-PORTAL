@@ -28,6 +28,8 @@ public class ApplicationService{
 	
 	//POST cust
 	public Application addApplication(Application app) {
+		app.getAppStatus();
+		app.getAppSubmissionDate();
 		Application savedApp = appRepo.save(app);
 		return savedApp;
 	}	

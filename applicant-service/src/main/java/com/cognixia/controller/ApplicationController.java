@@ -25,11 +25,6 @@ public class ApplicationController {
 	@Autowired
 	private ApplicationService appService;
 	
-//	@GetMapping("/index")
-//    public String loadIndex(){
-//        return "index.html";
-//    }
-	
 	//GET
 	@GetMapping
 	public ResponseEntity<List<Application>> getApplications(){

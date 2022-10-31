@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.cognixia.common.exception.UserIDMismatchException;
 import com.cognixia.model.User;
 import com.cognixia.repository.UserRepository;
+import com.cognixia.service.ApplicationService;
 import com.cognixia.service.UserService;
 
 @RestController
@@ -33,10 +35,18 @@ public class UserController {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
+//	@Autowired
+//	private ApplicationService appService;
+	
 	@GetMapping("/index")
     public String loadIndex(){
         return "index.html";
     }
+	
+//	@GetMapping("/applicationform")
+//	public void loadApplicationForm(Model model) {
+//		appService.showForm(model);
+//	}
 	
 	//GET /user
 	@GetMapping

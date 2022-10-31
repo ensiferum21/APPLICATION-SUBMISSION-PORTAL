@@ -25,13 +25,13 @@ public class Application {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dob;
 	
-	@PastOrPresent(message="Submission date cannot be future!")
-	private LocalDateTime appSubmissionDate;
+	//@PastOrPresent(message="Submission date cannot be future!")
+	private LocalDateTime appSubmissionDate = LocalDateTime.now();
 	
 	private String race;
 	private String countryOfBirth;
 	private String covidVaccStatus;
-	private String appStatus;
+	private String appStatus = "Pending";
 	
 	public int getApplicationID() {
 		return applicationID;
