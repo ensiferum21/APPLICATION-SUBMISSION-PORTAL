@@ -1,6 +1,7 @@
 package com.cognixia.service;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Period;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cognixia.common.exception.ApplicationNotFoundException;
+import com.cognixia.common.exception.InvalidAgeException;
 import com.cognixia.model.Application;
 import com.cognixia.repository.ApplicationRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,19 +32,28 @@ public class ApplicationService{
 		return applications;
 	}
 	
-	public void ageCalculator(Application app) {
-	    LocalDate d = LocalDate.now();
-	    int age = Period.between(app.getDob(), d).getYears();
-	    
-	    if(age < 18) {
-	    	String msg = "Age should not be less than 18";
-	    	System.out.println(msg);
-	    }
-	}
+//	public void ageCalculator(Application app) {
+//	    LocalDate d = LocalDate.now();
+//	    int age = Period.between(app.getDob(), d).getYears();
+//	    
+//	    if(age < 18) {
+//	    	String msg = "Age should not be less than 18";
+//	    	System.out.println(msg);
+//	    }
+//	}
 	
 	//POST cust
 	public Application addApplication(Application app) {
-		Application savedApp = appRepo.save(app);
+		Application savedApp = null;
+		
+		LocalDate d = LocalDate.now();
+	    int age = Period.between(app.getDob(), d).getYears();
+		
+	    if(age < 18) {
+	    	throw new InvalidAgeException();
+	    }else {
+	    	savedApp = appRepo.save(app);
+	    }
 		return savedApp;
 	}	
 	
@@ -67,4 +78,28 @@ public class ApplicationService{
 	            e.printStackTrace();
 	        }
 	}
+	
+//		
+//		File csvFile = new File("C:\\Users\\Kevi
+//	public void writeToCSV() throws IOException{
+//		List<Application> app = appRepo.findAll();n\\OneDrive\\Documents\\GitHub\\APPLICATION-SUBMISSION-PORTAL\\applicant-service\\applicationJSON\\application.json");
+//        FileWriter fileWriter = new FileWriter(csvFile);
+//
+//        //write header line here if you need.
+//
+//        for (Application a: app) {
+//            StringBuilder line = new StringBuilder();
+//            for (int i = 0; i < a.length(); i++) {
+//                line.append("\"");
+//                line.append(a[i].replaceAll("\"","\"\""));
+//                line.append("\"");
+//                if (i != a.length - 1) {
+//                    line.append(',');
+//                }
+//            }
+//            line.append("\n");
+//            fileWriter.write(line.toString());
+//        }
+//        fileWriter.close();
+//    }
 }

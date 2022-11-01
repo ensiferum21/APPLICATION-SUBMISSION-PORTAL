@@ -9,7 +9,9 @@ public class ApplicationProcessor implements ItemProcessor<Application, Applicat
   //private static final Logger log = LoggerFactory.getLogger(ApplicationProcessor.class);
 
   @Override
-  public Application process(final Application application) throws Exception {
+  public Application process(Application application) throws Exception {
+	  
+	application.setAppStatus("Pending Review");
 		
     return application;
   }

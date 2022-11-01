@@ -2,84 +2,155 @@ package com.cognixia.batch;
 
 import javax.sql.DataSource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.job.builder.FlowJobBuilder;
+import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.core.step.builder.SimpleStepBuilder;
+import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider;
 import org.springframework.batch.item.database.JdbcBatchItemWriter;
 import org.springframework.batch.item.database.builder.JdbcBatchItemWriterBuilder;
-import org.springframework.batch.item.file.FlatFileItemReader;
-import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
-import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
+import org.springframework.batch.item.json.JacksonJsonObjectReader;
+import org.springframework.batch.item.json.JsonItemReader;
+import org.springframework.batch.item.json.builder.JsonItemReaderBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
 import com.cognixia.model.Application;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Configuration
 @EnableBatchProcessing
 public class AppProcessBatchConfig {
 
 	@Autowired
+	private DataSource dataSource;
+	
+	@Autowired
 	public JobBuilderFactory jobBuilderFactory;
 
 	@Autowired
 	public StepBuilderFactory stepBuilderFactory;
+	
+	private static final Logger log = LoggerFactory.getLogger(ApplicationProcessor.class);
 	// end::setup[]
 
 	// tag::readerwriterprocessor[]
+//	@Bean
+//	public FlatFileItemReader<Application> reader() {
+//		return new FlatFileItemReaderBuilder<Application>()
+//			.name("applicationItemReader")
+//			.resource(new ClassPathResource("C:\\tmp\\ftp\\upload\\application.json"))
+//			.delimited()
+//			.names(new String[]{"applicationid", "app_status", "app_submission_date", "country_of_birth", "covid_vacc_status", "dob", "name", "race"})
+//			.fieldSetMapper(new BeanWrapperFieldSetMapper<Application>() {{
+//				setTargetType(Application.class);
+//			}})
+//			.build();
+//	}
+//	@Bean
+//    public JsonItemReader<Application> jsonItemReader() {
+//
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        JacksonJsonObjectReader<Application> jsonObjectReader = new JacksonJsonObjectReader<>(Application.class);
+//
+//        jsonObjectReader.setMapper(objectMapper);
+//
+//        return new JsonItemReaderBuilder<Application>()
+//                .jsonObjectReader(jsonObjectReader)
+//                .resource(new ClassPathResource("C:\\tmp\\ftp\\upload\\application.json"))
+//                .name("applicationItemReader")
+//                .build();
+//    }
+//
+//	@Bean
+//	public ApplicationProcessor processor() {
+//		return new ApplicationProcessor();
+//	}
+//
+//	@Bean
+//	public JdbcBatchItemWriter<Application> writer(DataSource dataSource) {
+//		return new JdbcBatchItemWriterBuilder<Application>()
+//			.itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
+//			.sql("INSERT INTO app_processed (applicationid, app_status, app_submission_date, country_of_birth, covid_vacc_status, dob, name, race) VALUES (:applicationid, :app_status, :app_submission_date, :country_of_birth, :covid_vacc_status, :dob, :name, :race)")
+//			.dataSource(dataSource)
+//			.build();
+//	}
+//	// end::readerwriterprocessor[]
+//
+//	// tag::jobstep[]
+//	@Bean
+//	public Job importAppJob(JobCompletionNotificationListener listener, Step step1) {
+//		return jobBuilderFactory.get("importAppJob")
+//			.incrementer(new RunIdIncrementer())
+//			.listener(listener)
+//			.flow(step1)
+//			.end()
+//			.build();
+//	}
+//
+//	@Bean
+//	public Step step1(JdbcBatchItemWriter<Application> writer) {
+//		return stepBuilderFactory.get("step1")
+//			.<Application, Application> chunk(10)
+//			.reader(jsonItemReader())
+//			.processor(processor())
+//			.writer(writer)
+//			.build();
+//	}
+//	// end::jobstep[]
+//==============================================[TESTING]============================================================
 	@Bean
-	public FlatFileItemReader<Application> reader() {
-		return new FlatFileItemReaderBuilder<Application>()
-			.name("applicationItemReader")
-			.resource(new ClassPathResource("C:\\Users\\Kevin\\OneDrive\\Documents\\GitHub\\APPLICATION-SUBMISSION-PORTAL\\applicant-service\\applicationJSON\\application.json"))
-			.delimited()
-			.names(new String[]{"applicationid", "app_status", "app_submission_date", "country_of_birth", "covid_vacc_status", "dob", "name", "race"})
-			.fieldSetMapper(new BeanWrapperFieldSetMapper<Application>() {{
-				setTargetType(Application.class);
-			}})
-			.build();
-	}
+    public JsonItemReader<Application> jsonItemReader() {
+        return new JsonItemReaderBuilder<Application>()
+                .jsonObjectReader(new JacksonJsonObjectReader<>(Application.class))
+                .resource(new ClassPathResource("/applicant-service/src/main/resources/application.json"))
+                .name("applicationJsonItemReader")
+                .build();   
+    }
 
-	@Bean
-	public ApplicationProcessor processor() {
-		return new ApplicationProcessor();
-	}
+//    public void testreader() {
+//    	String a = jsonItemReader().toString();
+//    	log.info(a + "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+//    }
 
-	@Bean
-	public JdbcBatchItemWriter<Application> writer(DataSource dataSource) {
-		return new JdbcBatchItemWriterBuilder<Application>()
-			.itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
-			.sql("INSERT INTO application_db.app_processed (applicationid, app_status, app_submission_date, country_of_birth, covid_vacc_status, dob, name, race) VALUES (:applicationid, :app_status, :app_submission_date, :country_of_birth, :covid_vacc_status, :dob, :name, :race")
-			.dataSource(dataSource)
-			.build();
-	}
-	// end::readerwriterprocessor[]
+    @Bean
+    public ApplicationProcessor processor() {
+        return new ApplicationProcessor();
+    }
 
-	// tag::jobstep[]
-	@Bean
-	public Job importUserJob(JobCompletionNotificationListener listener, Step step1) {
-		return jobBuilderFactory.get("importUserJob")
-			.incrementer(new RunIdIncrementer())
-			.listener(listener)
-			.flow(step1)
-			.end()
-			.build();
-	}
+    @Bean
+    public JdbcBatchItemWriter<Application> writer() {
+        JdbcBatchItemWriter<Application> writer = new JdbcBatchItemWriter<>();
+        writer.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>());
+        writer.setSql("INSERT INTO app_processed (applicationid, app_status, app_submission_date, country_of_birth, covid_vacc_status, dob, name, race) VALUES (:applicationid, :app_status, :app_submission_date, :country_of_birth, :covid_vacc_status, :dob, :name, :race)");
+        writer.setDataSource(dataSource);
+        return writer;
+    }
 
-	@Bean
-	public Step step1(JdbcBatchItemWriter<Application> writer) {
-		return stepBuilderFactory.get("step1")
-			.<Application, Application> chunk(10)
-			.reader(reader())
-			.processor(processor())
-			.writer(writer)
-			.build();
-	}
-	// end::jobstep[]
+
+    @Bean
+    public Job writeStudentDataIntoSqlDb() {
+        JobBuilder jobBuilder = jobBuilderFactory.get("APPLICATION_JOB");
+        jobBuilder.incrementer(new RunIdIncrementer());
+        FlowJobBuilder flowJobBuilder = jobBuilder.flow(getFirstStep()).end();
+        Job job = flowJobBuilder.build();
+        return job;
+    }
+
+    @Bean
+    public Step getFirstStep() {
+        StepBuilder stepBuilder = stepBuilderFactory.get("getFirstStep");
+        SimpleStepBuilder<Application, Application> simpleStepBuilder = stepBuilder.chunk(1);
+        return simpleStepBuilder.reader(jsonItemReader()).processor(processor()).writer(writer()).build();
+    }
 }

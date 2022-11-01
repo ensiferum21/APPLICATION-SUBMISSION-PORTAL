@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.cognixia.common.exception.ApplicationIDMismatchException;
 import com.cognixia.common.exception.ApplicationNotFoundException;
 import com.cognixia.common.exception.ErrorResponse;
+import com.cognixia.common.exception.InvalidAgeException;
 
 @RestControllerAdvice
 public class ApplicationControllerAdvice {
@@ -27,6 +28,13 @@ public class ApplicationControllerAdvice {
 	@ExceptionHandler(ApplicationNotFoundException.class)
 	public ResponseEntity<ErrorResponse> handleUserNotFoundException(ApplicationNotFoundException e){
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("APP-404",  "Application not found!" ));
+	}
+	
+	//for handling bad requests, user input errors
+	@ExceptionHandler(InvalidAgeException.class)
+	public ResponseEntity<ErrorResponse> handleInvalidAgeException(InvalidAgeException e)
+	{
+		return ResponseEntity.badRequest().body(new ErrorResponse("AGE-400", "Must be above 18 years to register!"));
 	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)

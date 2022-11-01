@@ -38,7 +38,7 @@ public class Application {
 	private String race;
 	private String countryOfBirth;
 	private String covidVaccStatus;
-	private String appStatus = "Pending";
+	private String appStatus = "Submitted";
 	
 //	public int ageCalculator() {
 //		int age = 0;
