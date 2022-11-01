@@ -24,7 +24,10 @@ public class DailyScheduler {
 	@Autowired
 	private Job job;
 	
-	@Scheduled(cron="*/2 * * * * *")
+	//(second, minute, hour, day of month, month, day(s) of week)
+	//23:59:59 daily
+	//(59 59 23 * * *)
+	@Scheduled(cron="0 26 22 * * *")
 	public void myScheduler(){
 		JobParameters jobParameters = new JobParametersBuilder().addLong("time", System.currentTimeMillis()).toJobParameters();
 		

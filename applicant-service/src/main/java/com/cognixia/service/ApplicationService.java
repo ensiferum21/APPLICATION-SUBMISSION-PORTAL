@@ -79,4 +79,9 @@ public class ApplicationService{
 	        }
 	}
 	
+	public boolean purgeData() {
+		appRepo.deleteAll();
+		return true;
+	}
+	
 }

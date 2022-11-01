@@ -41,17 +41,20 @@ public class ApplicantServiceApplication implements CommandLineRunner{
 		SpringApplication.run(ApplicantServiceApplication.class, args);
 	}
 	
-    public void generateJSONFile() {
-    	appService.writeToJSON();
-    }
-	
 	@Override
 	public void run(String... args) throws Exception {
-		// TODO Auto-generated method stub
+		//1. write data from application table to JSON file
 		generateJSONFile();
+		//2. upload JSON file to SFTP
 		gateway.upload(new File("C:\\Users\\Kevin\\OneDrive\\Documents\\GitHub\\APPLICATION-SUBMISSION-PORTAL\\applicant-service\\src\\main\\resources\\tempJSON\\application.json"));
+		//3. download file from SFTP server to project resource folder
 		transferFileStream();
+		//4. purge data in application table
 		//appService.purgeData();
+	}
+	
+	public void generateJSONFile() {
+		appService.writeToJSON();
 	}
 	
 	public void transferFileStream() throws IOException {
@@ -74,7 +77,6 @@ public class ApplicantServiceApplication implements CommandLineRunner{
             os.close();
         }
     }
-	
 }
 
 //docker run --name my-nginx-1 -d -v /c/tmp/html:/usr/share/nginx/html -p 8085:80 nginx

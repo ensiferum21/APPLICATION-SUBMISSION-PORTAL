@@ -63,7 +63,7 @@ public class AppProcessBatchConfig {
     }
 
     @Bean
-    public Job writeStudentDataIntoSqlDb() throws IOException {
+    public Job writeApplicationIntoSqlDb() throws IOException {
         JobBuilder jobBuilder = jobBuilderFactory.get("APPLICATION_JOB");
         jobBuilder.incrementer(new RunIdIncrementer());
         FlowJobBuilder flowJobBuilder = jobBuilder.flow(getFirstStep()).end();
