@@ -79,27 +79,4 @@ public class ApplicationService{
 	        }
 	}
 	
-//		
-//		File csvFile = new File("C:\\Users\\Kevi
-//	public void writeToCSV() throws IOException{
-//		List<Application> app = appRepo.findAll();n\\OneDrive\\Documents\\GitHub\\APPLICATION-SUBMISSION-PORTAL\\applicant-service\\applicationJSON\\application.json");
-//        FileWriter fileWriter = new FileWriter(csvFile);
-//
-//        //write header line here if you need.
-//
-//        for (Application a: app) {
-//            StringBuilder line = new StringBuilder();
-//            for (int i = 0; i < a.length(); i++) {
-//                line.append("\"");
-//                line.append(a[i].replaceAll("\"","\"\""));
-//                line.append("\"");
-//                if (i != a.length - 1) {
-//                    line.append(',');
-//                }
-//            }
-//            line.append("\n");
-//            fileWriter.write(line.toString());
-//        }
-//        fileWriter.close();
-//    }
 }

@@ -26,7 +26,7 @@ public class User {
 	
 	@Size(min=8, max=8, message="mobile number only 8 digits")
 	private String mobile;
-	private LocalDateTime timestamp;
+	private LocalDateTime lastLogin;
 	
 	public int getUserID() {
 		return userID;
@@ -58,25 +58,25 @@ public class User {
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
-	public LocalDateTime getTimestamp() {
-		return timestamp;
+	public LocalDateTime getLastLogin() {
+		return lastLogin;
 	}
-	public void setTimestamp(LocalDateTime timestamp) {
-		this.timestamp = timestamp;
+	public void setLastLogin(LocalDateTime lastLogin) {
+		this.lastLogin = lastLogin;
 	}
 	
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public User(int userID, String username, String password, String email, String mobile, LocalDateTime timestamp) {
+	public User(int userID, String username, String password, String email, String mobile, LocalDateTime lastLogin) {
 		super();
 		this.userID = userID;
 		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.mobile = mobile;
-		this.timestamp = timestamp;
+		this.lastLogin = lastLogin;
 	}
 	
 }
