@@ -67,7 +67,7 @@ public class ApplicationService{
 	public void writeToJSON() {
 		List<Application> app = appRepo.findAll();
 		
-		 String path = "C:\\Users\\Kevin\\OneDrive\\Documents\\GitHub\\APPLICATION-SUBMISSION-PORTAL\\applicant-service\\applicationJSON\\application.json";
+		 String path = "C:\\Users\\Kevin\\OneDrive\\Documents\\GitHub\\APPLICATION-SUBMISSION-PORTAL\\applicant-service\\src\\main\\resources\\tempJSON\\application.json";
 		 
 		 try {
 	            ObjectMapper mapper = new ObjectMapper();

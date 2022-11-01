@@ -109,19 +109,15 @@ public class AppProcessBatchConfig {
 //	}
 //	// end::jobstep[]
 //==============================================[TESTING]============================================================
-	@Bean
+	
+	//ClassPathResource: just put name of file from resource folder
     public JsonItemReader<Application> jsonItemReader() {
         return new JsonItemReaderBuilder<Application>()
                 .jsonObjectReader(new JacksonJsonObjectReader<>(Application.class))
-                .resource(new ClassPathResource("/applicant-service/src/main/resources/application.json"))
+                .resource(new ClassPathResource("tempJSON/application.json"))
                 .name("applicationJsonItemReader")
                 .build();   
     }
-
-//    public void testreader() {
-//    	String a = jsonItemReader().toString();
-//    	log.info(a + "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-//    }
 
     @Bean
     public ApplicationProcessor processor() {
@@ -132,11 +128,10 @@ public class AppProcessBatchConfig {
     public JdbcBatchItemWriter<Application> writer() {
         JdbcBatchItemWriter<Application> writer = new JdbcBatchItemWriter<>();
         writer.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>());
-        writer.setSql("INSERT INTO app_processed (applicationid, app_status, app_submission_date, country_of_birth, covid_vacc_status, dob, name, race) VALUES (:applicationid, :app_status, :app_submission_date, :country_of_birth, :covid_vacc_status, :dob, :name, :race)");
+        writer.setSql("INSERT INTO app_processed (applicationid, app_status, app_submission_date, country_of_birth, covid_vacc_status, dob, name, race) VALUES (:applicationID, :appStatus, :appSubmissionDate, :countryOfBirth, :covidVaccStatus, :dob, :name, :race)");
         writer.setDataSource(dataSource);
         return writer;
     }
-
 
     @Bean
     public Job writeStudentDataIntoSqlDb() {

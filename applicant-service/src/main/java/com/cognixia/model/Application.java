@@ -2,17 +2,21 @@ package com.cognixia.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Period;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Transient;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 @Entity
 public class Application {
@@ -27,12 +31,15 @@ public class Application {
 	@NotNull
 	@PastOrPresent(message="Date of Birth cannot be future!")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonDeserialize(using=LocalDateDeserializer.class)
+	@JsonSerialize(using=LocalDateSerializer.class)
 	private LocalDate dob;
 	
 //	@Transient
 //	@Min(value=18, message = "Age should not be less than 18")
 //	private int age = ageCalculator();
-	
+	@JsonDeserialize(using=LocalDateTimeDeserializer.class)
+	@JsonSerialize(using=LocalDateTimeSerializer.class)
 	private LocalDateTime appSubmissionDate = LocalDateTime.now();
 	
 	private String race;

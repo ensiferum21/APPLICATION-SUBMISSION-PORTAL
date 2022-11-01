@@ -47,25 +47,9 @@ public class ApplicantServiceApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
 		generateFile();
-		gateway.upload(new File("C:\\Users\\Kevin\\OneDrive\\Documents\\GitHub\\APPLICATION-SUBMISSION-PORTAL\\applicant-service\\applicationJSON\\application.json"));
+		gateway.upload(new File("C:\\Users\\Kevin\\OneDrive\\Documents\\GitHub\\APPLICATION-SUBMISSION-PORTAL\\applicant-service\\src\\main\\resources\\tempJSON\\application.json"));
 	}
 	
-//	@Bean
-//	CommandLineRunner runner(ApplicationService appService){
-//	    return args -> {
-//			// read JSON and load json
-//			ObjectMapper mapper = new ObjectMapper();
-//			TypeReference<List<Application>> typeReference = new TypeReference<List<Application>>(){};
-//			InputStream inputStream = TypeReference.class.getResourceAsStream("/applicant-service/src/main/resources/application.json");
-//			try {
-//				List<Application> applications = mapper.readValue(inputStream,typeReference);
-//				appService.save(applications);
-//				System.out.println("applications Saved!");
-//			} catch (IOException e){
-//				System.out.println("Unable to save users: " + e.getMessage());
-//			}
-//	    };
-//	}
 }
 
 //docker run --name my-nginx-1 -d -v /c/tmp/html:/usr/share/nginx/html -p 8085:80 nginx
