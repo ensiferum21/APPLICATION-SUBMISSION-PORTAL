@@ -21,28 +21,6 @@ public class NotificationController {
 	@Autowired
 	private NotificationService notifService;
 
-	//GET
-	@GetMapping
-	public List<Notification> getApplications(){
-		return notifService.listNotifications();
-	}
-
-	//POST
-	@PostMapping
-	public Notification addNotification(@RequestBody Notification notif){
-		
-		Notification newNotif = notifService.addNewNotification(notif);
-		return newNotif;
-	}
-
-	//GET /{id}
-	@GetMapping("/{notifID}")
-	public Optional<Notification> getNotifById(@PathVariable int notifID){
-
-		Optional<Notification> notif = notifService.getNotifByID(notifID);		
-		return notif;	
-	}
-	
 	// Sending Email
     @PostMapping("/send")
     public String sendMail(@RequestBody Notification details)
@@ -51,5 +29,28 @@ public class NotificationController {
  
         return status;
     }
+    
+	//GET
+	@GetMapping
+	public List<Notification> getNotifications(){
+		return notifService.listNotifications();
+	}
+
+	//POST
+//	@PostMapping
+//	public Notification addNotification(@RequestBody Notification notif){
+//		
+//		Notification newNotif = notifService.addNewNotification(notif);
+//		return newNotif;
+//	}
+
+	//GET /{id}
+	@GetMapping("/{notifID}")
+	public Optional<Notification> getNotifById(@PathVariable int notifID){
+
+		Optional<Notification> notif = notifService.getNotifByID(notifID);		
+		return notif;	
+	}
+
 
 }

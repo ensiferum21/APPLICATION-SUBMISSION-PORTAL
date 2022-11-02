@@ -44,40 +44,36 @@ public class ApplicantServiceApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		//1. write data from application table to JSON file
-		generateJSONFile();
+		appService.writeToJSON();
 		//2. upload JSON file to SFTP
 		gateway.upload(new File("C:\\Users\\Kevin\\OneDrive\\Documents\\GitHub\\APPLICATION-SUBMISSION-PORTAL\\applicant-service\\src\\main\\resources\\tempJSON\\application.json"));
 		//3. download file from SFTP server to resource folder
-		transferFileStream();
+		//transferFileStream();
 		//4. purge data in application table
 		//appService.purgeData();
 	}
 	
-	public void generateJSONFile() {
-		appService.writeToJSON();
-	}
-	
 	//download json file from SFTP server to resource folder
-	public void transferFileStream() throws IOException {
-
-        File source = new File("C:\\tmp\\ftp\\upload\\application.json");
-        File dest = new File("C:\\Users\\Kevin\\OneDrive\\Documents\\GitHub\\APPLICATION-SUBMISSION-PORTAL\\applicant-service\\src\\main\\resources\\SFTPreceiveApplications\\receivedApplicationsSFTP.json");
-
-        InputStream is = null;
-        OutputStream os = null;
-        try {
-            is = new FileInputStream(source);
-            os = new FileOutputStream(dest);
-            byte[] buffer = new byte[1024];
-            int length;
-            while ((length = is.read(buffer)) > 0) {
-                os.write(buffer, 0, length);
-            }
-        } finally {
-            is.close();
-            os.close();
-        }
-    }
+//	public void transferFileStream() throws IOException {
+//
+//        File source = new File("C:\\tmp\\ftp\\upload\\application.json");
+//        File dest = new File("C:\\Users\\Kevin\\Documents\\workspace-spring-tool-suite-4-4.16.0.RELEASE\\application-batch-processor\\src\\main\\resources\\SFTPreceiveApplications\\receivedApplicationsSFTP.json");
+//
+//        InputStream is = null;
+//        OutputStream os = null;
+//        try {
+//            is = new FileInputStream(source);
+//            os = new FileOutputStream(dest);
+//            byte[] buffer = new byte[1024];
+//            int length;
+//            while ((length = is.read(buffer)) > 0) {
+//                os.write(buffer, 0, length);
+//            }
+//        } finally {
+//            is.close();
+//            os.close();
+//        }
+//    }
 }
 
 //docker run --name my-nginx-1 -d -v /c/tmp/html:/usr/share/nginx/html -p 8085:80 nginx

@@ -32,12 +32,12 @@ public class NotificationService{
 	}
 	
 	//POST cust
-	public Notification addNewNotification(Notification notif) {
-		notif.getMessage();
-		notif.getNotiSendDate();
-		Notification newNotif= notifRepo.save(notif);
-		return newNotif;
-	}	
+//	public Notification addNewNotification(Notification notif) {
+//		notif.getMessage();
+//		notif.getNotiSendDate();
+//		Notification newNotif= notifRepo.save(notif);
+//		return newNotif;
+//	}	
 	
 	//GET cust by id
 	public Optional<Notification> getNotifByID(int id){
@@ -59,6 +59,10 @@ public class NotificationService{
 
 			// Sending the mail
 			javaMailSender.send(mailMessage);
+			details.getMessage();
+			details.getNotiSendDate();
+			notifRepo.save(details);
+			
 			return "Mail Sent Successfully...";
 		}
 
