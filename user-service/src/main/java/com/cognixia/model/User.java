@@ -1,13 +1,14 @@
 package com.cognixia.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
 
 @Entity
 public class User {
@@ -26,7 +27,11 @@ public class User {
 	
 	@Size(min=8, max=8, message="mobile number only 8 digits")
 	private String mobile;
-	private LocalDateTime lastLogin;
+	private LocalDateTime lastLogin = LocalDateTime.now();
+	
+	// Feign
+    @Transient
+    private List<Application> applications;
 	
 	public int getUserID() {
 		return userID;
@@ -64,6 +69,14 @@ public class User {
 	public void setLastLogin(LocalDateTime lastLogin) {
 		this.lastLogin = lastLogin;
 	}
+	
+	// Feign
+    public List<Application> getApplications() {
+        return applications;
+    }
+    public void setApplications(List<Application> applications) {
+        this.applications = applications;
+    }
 	
 	public User() {
 		super();

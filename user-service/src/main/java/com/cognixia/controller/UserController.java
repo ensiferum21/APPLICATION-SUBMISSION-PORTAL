@@ -35,18 +35,10 @@ public class UserController {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
-//	@Autowired
-//	private ApplicationService appService;
-	
 	@GetMapping("/index")
     public String loadIndex(){
         return "index.html";
-    }
-	
-//	@GetMapping("/applicationform")
-//	public void loadApplicationForm(Model model) {
-//		appService.showForm(model);
-//	}
+    }	
 	
 	//GET /user
 	@GetMapping
@@ -57,7 +49,6 @@ public class UserController {
 	//POST
 	@PostMapping
 	public ResponseEntity<User>addUser(@Valid @RequestBody User user){
-		
 		String pwd= user.getPassword();
 		String encrptedPwd = passwordEncoder.encode(pwd);
 		user.setPassword(encrptedPwd);
@@ -70,22 +61,22 @@ public class UserController {
 	
 	//GET /{id}
 	@GetMapping("/{userID}")
-	public ResponseEntity<User> getCustById(@PathVariable int userID){
-		User custFound = userService.getUserByID(userID);
-		if(custFound == null) {
+	public ResponseEntity<User> getUserById(@PathVariable int userID){
+		User userFound = userService.getUserByID(userID);
+		if(userFound == null) {
 			return ResponseEntity.notFound().build();
 		}else {
-			return ResponseEntity.ok(custFound);
+			return ResponseEntity.ok(userFound);
 		}
 	}
 	
 	//PUT /{id}
 	@PutMapping("/{userID}")
-	public ResponseEntity<User> updateCust(@PathVariable int custID, @Valid @RequestBody User newUser){	
-		if(custID != newUser.getUserID())
+	public ResponseEntity<User> updateUser(@PathVariable int userID, @Valid @RequestBody User newUser){	
+		if(userID != newUser.getUserID())
 			throw new UserIDMismatchException("IDs must match");
-		User updatedCust = userService.updateUser(newUser);
-		if(updatedCust == null)
+		User updatedUser = userService.updateUser(newUser);
+		if(updatedUser == null)
 			return ResponseEntity.notFound().build(); 
 		else
 			return ResponseEntity.ok(newUser);
@@ -93,7 +84,7 @@ public class UserController {
 	
 	//DELETE /{id}
 	@DeleteMapping("/{userID}")
-	public ResponseEntity<User> deleteEmployee(@PathVariable int userID)
+	public ResponseEntity<User> deleteUser(@PathVariable int userID)
 	{
 		if(userService.deleteUser(userID))
 			return ResponseEntity.noContent().build();

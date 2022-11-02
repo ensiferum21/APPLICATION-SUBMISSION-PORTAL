@@ -47,7 +47,7 @@ public class ApplicantServiceApplication implements CommandLineRunner{
 		generateJSONFile();
 		//2. upload JSON file to SFTP
 		gateway.upload(new File("C:\\Users\\Kevin\\OneDrive\\Documents\\GitHub\\APPLICATION-SUBMISSION-PORTAL\\applicant-service\\src\\main\\resources\\tempJSON\\application.json"));
-		//3. download file from SFTP server to project resource folder
+		//3. download file from SFTP server to resource folder
 		transferFileStream();
 		//4. purge data in application table
 		//appService.purgeData();
@@ -57,6 +57,7 @@ public class ApplicantServiceApplication implements CommandLineRunner{
 		appService.writeToJSON();
 	}
 	
+	//download json file from SFTP server to resource folder
 	public void transferFileStream() throws IOException {
 
         File source = new File("C:\\tmp\\ftp\\upload\\application.json");

@@ -31,6 +31,7 @@ public class UserService implements UserDetailsService{
 	
 	//POST cust
 	public User addUser(User user) {
+		user.getLastLogin();
 		User savedUser = userRepository.save(user);
 //		List<Account> accounts = cust.getAccounts();
 //		

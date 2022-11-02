@@ -42,5 +42,14 @@ public class NotificationController {
 		Optional<Notification> notif = notifService.getNotifByID(notifID);		
 		return notif;	
 	}
+	
+	// Sending Email
+    @PostMapping("/send")
+    public String sendMail(@RequestBody Notification details)
+    {
+        String status = notifService.sendEMail(details);
+ 
+        return status;
+    }
 
 }

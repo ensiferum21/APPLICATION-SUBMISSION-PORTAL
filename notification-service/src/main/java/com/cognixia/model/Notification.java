@@ -16,6 +16,7 @@ public class Notification {
 	private int applicationID;
 	private String message = "This email is to notify that you have successfully submitted an application. Your application will be reviewed shortly!";	
 	private String recipientEmail;
+	private String subject = "RE: Application Submission";
 	private LocalDateTime notiSendDate = LocalDateTime.now();
 	
 	public int getNotificationID() {
@@ -35,6 +36,13 @@ public class Notification {
 	}
 	public void setMessage(String message) {
 		this.message = message;
+	}
+	
+	public String getSubject() {
+		return subject;
+	}
+	public void setSubject(String subject) {
+		this.subject = subject;
 	}
 	public String getRecipientEmail() {
 		return recipientEmail;
