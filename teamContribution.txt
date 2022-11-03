@@ -1,0 +1,21 @@
+USER-SERVICE : Teo Wen Xuan
+
+APPLICANT-SERVICE : Kevin Kim / Daniel
+
+APPLICATION-BATCH-PROCESSOR : Kevin Kim
+
+NOTIFICATION-SERVICE : Daniel
+
+-----------------------------------------------------------------------------------
+USER-SERVICE MS
+Encrypt-User-Details-Password : Daniel
+
+APPLICANT-SERVICE MS
+Applicant-Notification-Feign-Client : Teo Wen Xuan
+Applicant-Submission : Teo Wen Xuan
+
+SFTP Batch : Kevin Kim / Daniel
+
+APPLICATION-BATCH-PROCESSOR MS
+Batch-Processor-Reader : Kevin Kim / Daniel / Teo Wen Xuan
+
