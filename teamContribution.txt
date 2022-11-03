@@ -1,0 +1,7 @@
+user-service : Teo Wen Xuan
+
+applicant-service : Kevin Kim / Daniel
+
+application-batch-processor : Kevin Kim
+
+notification-service : Daniel
