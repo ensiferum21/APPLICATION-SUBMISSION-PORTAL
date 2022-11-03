@@ -1,13 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="https://www.thymeLeaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Spring Boot Application Form Demo</title>
+<title>User Home Page</title>
 </head>
 <body>
-    <div align="center">
-        <h1>Welcome!</h1>
-        <a href="/redirect">Click here to enter Application Services!</a>
-    </div>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/cosmo/bootstrap.min.css" />
+	<div align="center">
+		<h1>Welcome!</h1>
+		<h2><a href="/redirect">Click here to enter Application Services!</a></h2>
+		<br>
+		<br>
+		<form th:action="@{/logout}" method="post">
+        <input type="submit" class="btn btn-info" value="Logout" />
+    	</form>
+	</div>
 </body>
 </html>

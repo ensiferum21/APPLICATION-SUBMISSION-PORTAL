@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-<title>Application Received</title>
+<meta charset="UTF-8">
+<title>Application Submitted!</title>
 <style type="text/css">
     span {
         display: inline-block;
@@ -13,15 +13,12 @@
 </head>
 <body>
 <div align="center">
-    <h2>Application Received!</h2>
-    <span>Name:</span><span th:text="${user.name}"></span><br/>
-    <span>Date of Birth:</span><span th:text="${user.dob}"></span><br/>
-    <span>Race:</span><span th:text="${user.race}"></span><br/>
-    <span>Country of Birth:</span><span th:text="${user.countryOfBirth}"></span><br/>
-    <span>COVID Vaccination Status:</span><span th:text="${user.covidVaccStatus}"></span><br/>
-    <br><a href="/api/applicantservice">Back to main</a>
-</div>
-
+    <h2>Dear <span th:text="${user.name}"></span></h2>
+    <br>
+    <h2>We have received your Application!</h2>
+    <br><a href="/api/applicantservice">Back to Main</a>
+<!--     <br><a href="/api/applicantservice/applicationview">View Application</a>
+ --></div>
 
 <!-- <div th:if="${session.message}"
 th:classappend="${session.message}" class="alert alert-success"

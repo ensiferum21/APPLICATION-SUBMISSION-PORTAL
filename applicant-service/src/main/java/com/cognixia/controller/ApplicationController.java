@@ -28,7 +28,6 @@ public class ApplicationController {
 	//GET
 	@GetMapping
 	public ResponseEntity<List<Application>> getApplications(){
-		appService.writeToJSON();
 		return ResponseEntity.ok(appService.listApplications());
 	}
 	

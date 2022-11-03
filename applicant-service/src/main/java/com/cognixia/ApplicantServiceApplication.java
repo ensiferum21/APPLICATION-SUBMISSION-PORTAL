@@ -48,7 +48,7 @@ public class ApplicantServiceApplication implements CommandLineRunner{
 		//2. upload JSON file to SFTP
 		gateway.upload(new File("C:\\Users\\Kevin\\OneDrive\\Documents\\GitHub\\APPLICATION-SUBMISSION-PORTAL\\applicant-service\\src\\main\\resources\\tempJSON\\application.json"));
 		//3. purge data in application table
-		//appService.purgeData();
+		appService.purgeData();
 	}
 
 }

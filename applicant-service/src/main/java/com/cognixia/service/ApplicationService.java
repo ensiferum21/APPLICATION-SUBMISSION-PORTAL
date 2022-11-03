@@ -42,7 +42,7 @@ public class ApplicationService{
 //	    }
 //	}
 	
-	//POST cust
+	//POST application
 	public Application addApplication(Application app) {
 		Application savedApp = null;
 		
@@ -57,7 +57,7 @@ public class ApplicationService{
 		return savedApp;
 	}	
 	
-	//GET cust by id
+	//GET application by id
 	public Application getAppByID(int id){
 		Application app = appRepo.findById(id).orElseThrow(ApplicationNotFoundException::new);
 		return app;

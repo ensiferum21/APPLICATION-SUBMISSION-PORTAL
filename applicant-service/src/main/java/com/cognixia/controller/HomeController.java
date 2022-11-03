@@ -45,7 +45,7 @@ public class HomeController {
 		return "application_form";
 	}
 	
-	@PostMapping("/applicationform")
+	@PostMapping("/applicationform/submitted")
 	public String submitForm(@ModelAttribute("user") Application user, HttpSession session) 
 	{
 	    System.out.println(user);
